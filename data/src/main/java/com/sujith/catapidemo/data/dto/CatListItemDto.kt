@@ -5,13 +5,13 @@ import com.google.gson.annotations.SerializedName
 
 data class CatListItemDto(
     @SerializedName("breeds")
-    val breeds: List<Breed>,
+    val breeds: List<BreedDto>,
     @SerializedName("id")
     val id: String,
     @SerializedName("url")
     val url: String,
 )
-data class Breed(
+data class BreedDto(
     @SerializedName("adaptability")
     val adaptability: Int,
     @SerializedName("affection_level")

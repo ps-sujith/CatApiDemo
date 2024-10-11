@@ -1,4 +1,4 @@
-package com.sujith.catapidemo.ui
+package com.sujith.catapidemo
 
 import app.cash.turbine.test
 import com.nhaarman.mockitokotlin2.mock
@@ -46,6 +46,12 @@ class CatListViewModelShould {
             assertEquals(exceptedResult, awaitItem())
             cancelAndIgnoreRemainingEvents()
         }
+    }
+
+    @Test
+    fun ` emit Loading state when viewmodel launched `() = runTest {
+        mockSuccessfulCase()
+        assertEquals(true, catListViewModel.catListUiState.value.isLoading)
     }
 
     @Test

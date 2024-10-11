@@ -50,7 +50,15 @@ android {
 }
 
 dependencies {
-//Core
+    implementation(project(":ui"))
+    implementation(project(":data"))
+    implementation(project(":domain"))
+
+    //Core
     implementation(libs.bundles.core)
     implementation(platform(libs.androidx.compose.bom))
+
+    //Koin
+    implementation(platform(libs.koin.bom))
+    implementation(libs.bundles.koin)
 }

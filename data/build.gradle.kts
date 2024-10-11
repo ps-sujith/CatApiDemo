@@ -13,6 +13,9 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+
+        buildConfigField("String", "BASE_URL", "\"https://api.thecatapi.com/\"")
+        buildConfigField("String", "API_KEY", "\"live_LjtyFsPHWVJuXA5YOqr5QyTKsw1MfSAVdDgW52uTl3Hj0mXobNsrbFzB2VQ2KNWX\"")
     }
 
     buildTypes {
@@ -24,6 +27,9 @@ android {
             )
         }
     }
+    buildFeatures {
+        buildConfig = true
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -31,6 +37,7 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
 }
 
 dependencies {
