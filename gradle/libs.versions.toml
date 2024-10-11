@@ -1,7 +1,6 @@
 [versions]
 agp = "8.5.2"
 kotlin = "1.9.0"
-hilt = "2.49"
 activityCompose = "1.9.2"
 composeBom = "2024.09.02"
 coreKtx = "1.13.1"
@@ -9,9 +8,6 @@ lifecycleRuntimeKtx = "2.8.6"
 materialVersion = "1.7.2"
 retrofit = "2.9.0"
 converter-gson = "2.9.0"
-hilt-android = "2.49"
-hilt-compiler = "2.49"
-hilt-navigation-compose = "1.2.0"
 coil-compose = "2.3.0"
 serialization = "1.6.3"
 composeNavigation = "2.8.1"
@@ -27,7 +23,7 @@ appcompat = "1.7.0"
 material = "1.12.0"
 lottieVersion = "6.5.2"
 uiToolingPreview = "1.7.2"
-
+koin-bom = "4.0.0"
 
 [libraries]
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
@@ -42,11 +38,6 @@ androidx-material = { module = "androidx.compose.material:material", version.ref
 
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "converter-gson" }
-
-hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt-android" }
-hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt-compiler" }
-androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hilt-navigation-compose" }
-
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil-compose" }
 
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization" }
@@ -69,17 +60,20 @@ material = { group = "com.google.android.material", name = "material", version.r
 lottie = { module = "com.airbnb.android:lottie-compose", name = "lottie", version.ref = "lottieVersion" }
 ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "uiToolingPreview" }
 
+koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin-bom" }
+koin-core = { module = "io.insert-koin:koin-core" }
+koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-daggerHilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 
 [bundles]
-core = ["androidx-activity-compose", "androidx-core-ktx", "androidx-lifecycle-runtime-ktx", "androidx-material3", "androidx-ui", "androidx-ui-graphics", "androidx-ui-tooling-preview", "androidx-material","material"]
+core = ["androidx-activity-compose", "androidx-core-ktx", "androidx-lifecycle-runtime-ktx", "androidx-material3", "androidx-ui", "androidx-ui-graphics", "androidx-ui-tooling-preview", "androidx-material", "material"]
+koin = ["koin-core", "koin-androidx-compose"]
 retrofit = ["retrofit", "converter-gson"]
-hilt = ["hilt-android", "androidx-hilt-navigation-compose"]
 navigation = ["navigation-compose", "kotlinx-serialization-json"]
 unitTest = ["junit", "mockito-kotlin", "mockito-inline",
     "androidx-core-testing", "kotlinx-coroutines-test", "turbine"]

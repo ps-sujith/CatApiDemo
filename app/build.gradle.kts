@@ -53,5 +53,4 @@ dependencies {
 //Core
     implementation(libs.bundles.core)
     implementation(platform(libs.androidx.compose.bom))
-
 }

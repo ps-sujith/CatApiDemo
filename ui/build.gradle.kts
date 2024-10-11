@@ -30,14 +30,32 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.1"
+    }
 }
 
 dependencies {
-
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    implementation(project(":domain"))
+    //Core
+    implementation(libs.bundles.core)
+    implementation(platform(libs.androidx.compose.bom))
+    //Koin
+    implementation(platform(libs.koin.bom))
+    implementation(libs.bundles.koin)
+    //Navigation
+    implementation(libs.bundles.navigation)
+    //Coil
+    implementation(libs.coil.compose)
+    //Lottie
+    implementation(libs.lottie)
+    //Unit test
+    testImplementation(libs.bundles.unitTest)
+    androidTestImplementation(libs.bundles.uiTest)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    debugImplementation(libs.bundles.debugImpl)
+    implementation(libs.ui.tooling.preview)
 }
