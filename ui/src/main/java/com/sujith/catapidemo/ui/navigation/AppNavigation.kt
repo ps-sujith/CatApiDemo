@@ -61,8 +61,9 @@ fun AppNavigation() {
                 val catListUiState by catListViewModel.catListUiState.collectAsStateWithLifecycle()
                 val favListUiState by favouriteViewModel.favListUiState.collectAsStateWithLifecycle()
                 //maintaining a single detail screen for cat list and favourite list
+                val isFromFavourites = entry.toRoute<CatDetail>().isInvokedFromFavourite
                 val sourceList =
-                    if (entry.toRoute<CatDetail>().isInvokedFromFavourite) favListUiState.favList else catListUiState.catList
+                    if (isFromFavourites) favListUiState.favList else catListUiState.catList
                 val catId = entry.toRoute<CatDetail>().id
                 val selectedCatItem =
                     sourceList.takeIf { it.isNotEmpty() }?.firstOrNull { it.id == catId }
@@ -72,6 +73,9 @@ fun AppNavigation() {
                     if (isFavourite) {
                         favouriteViewModel.addFavouriteCat(catListItem.copy(isFavourite = true))
                     } else {
+                        if (isFromFavourites) {
+                            navController.navigateUp()
+                        }
                         favouriteViewModel.removeFavouriteCat(catListItem)
                     }
                 }

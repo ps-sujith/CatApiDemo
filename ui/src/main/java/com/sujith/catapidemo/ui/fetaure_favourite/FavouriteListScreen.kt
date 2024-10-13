@@ -57,7 +57,7 @@ fun FavouriteListScreen(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding),
+                .padding(innerPadding).background(MaterialTheme.colorScheme.surfaceContainer),
             contentAlignment = Alignment.Center
         ) {
             if (favListUiState.isLoading) {
@@ -77,7 +77,7 @@ fun FavouriteListScreen(
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
-                            .background(color = MaterialTheme.colorScheme.surface)
+                            .background(color = MaterialTheme.colorScheme.surfaceContainer)
 
                     ) {
                         Text(
@@ -101,7 +101,7 @@ fun FavouriteListScreen(
                             modifier = Modifier
                                 .fillMaxSize()
                                 .padding(horizontal = dimensionResource(R.dimen.padding_small))
-                                .background(MaterialTheme.colorScheme.surface),
+                                .background(MaterialTheme.colorScheme.surfaceContainer),
                             columns = GridCells.Fixed(2),
                             content = {
                                 items(favListUiState.favList) { favItem ->

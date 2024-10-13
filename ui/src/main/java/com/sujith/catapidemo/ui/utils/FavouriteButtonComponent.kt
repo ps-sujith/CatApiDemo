@@ -21,6 +21,7 @@ fun FavouriteButtonComponent(
     incomingState :Boolean,
     onFavouriteClicked: (isFavourite: Boolean) -> Unit,
 ) {
+    //act as the local source of truth till the list refresh
     var isFavorite by remember { mutableStateOf(incomingState) }
     IconToggleButton(
         checked = isFavorite,

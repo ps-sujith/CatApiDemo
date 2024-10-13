@@ -48,13 +48,13 @@ fun CatListScreen(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding).background( color = MaterialTheme.colorScheme.surface),
+                .padding(innerPadding).background( color = MaterialTheme.colorScheme.surfaceContainer),
             contentAlignment = Alignment.Center
         ) {
             if (catListUiState.isLoading) {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.surface
+                    color = MaterialTheme.colorScheme.surfaceContainer
                 ) {
                     Lottie(
                         rawFile = R.raw.loading_anim,
@@ -66,7 +66,7 @@ fun CatListScreen(
             } else {
                 if (catListUiState.catList.isNotEmpty()) {
                     LazyVerticalGrid(
-                        modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.surface),
+                        modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.surfaceContainer),
                         columns = GridCells.Fixed(1),
                         content = {
                             items(catListUiState.catList) { catItem ->
