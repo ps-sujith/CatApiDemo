@@ -14,7 +14,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -56,8 +58,11 @@ fun BottomNavBarComponent(navController: NavController) {
                 },
                 label = {
                     Text(
-                        topLevelRoute.name,
-                        color = MaterialTheme.colorScheme.onBackground
+                        modifier = Modifier.padding(2.dp),
+                        text = topLevelRoute.name,
+                        fontSize = dimensionResource(id = R.dimen.small_font_size).value.sp,
+                        color = MaterialTheme.colorScheme.onBackground,
+                        fontFamily = FontFamily.Serif,
                     )
                 },
                 selected = currentDestination?.hierarchy?.any {

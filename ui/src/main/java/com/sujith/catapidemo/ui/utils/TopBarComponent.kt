@@ -18,6 +18,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
 import com.sujith.catapidemo.ui.R
 
@@ -34,7 +35,7 @@ fun TopAppBarComponent(
             containerColor = MaterialTheme.colorScheme.surface
         ),
         title = {
-            AppTitle()
+            AppTitle(dimensionResource(id = R.dimen.app_bar_title_size).value.sp)
         },
 
         navigationIcon = {
@@ -51,23 +52,23 @@ fun TopAppBarComponent(
 }
 
 @Composable
-fun AppTitle() {
+fun AppTitle(textSize: TextUnit) {
     val annotatedString = buildAnnotatedString {
         withStyle(
             style = SpanStyle(
                 color = MaterialTheme.colorScheme.onBackground,
-                fontSize = dimensionResource(id = R.dimen.app_bar_title_size).value.sp,
+                fontSize = textSize,
                 fontWeight = FontWeight.W300,
                 fontStyle = FontStyle.Italic
             )
         ) {
-            append("My, ")
+            append("My ")
         }
         withStyle(
             style = SpanStyle(
                 color = MaterialTheme.colorScheme.onBackground,
                 fontWeight = FontWeight.Bold,
-                fontSize = dimensionResource(id = R.dimen.app_bar_title_size).value.sp,
+                fontSize = textSize,
             )
         ) {
             append(stringResource(R.string.my_cat_app))

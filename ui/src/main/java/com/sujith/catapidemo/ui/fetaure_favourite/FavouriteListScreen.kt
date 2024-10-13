@@ -2,6 +2,7 @@ package com.sujith.catapidemo.ui.fetaure_favourite
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -17,9 +18,14 @@ import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -68,22 +74,53 @@ fun FavouriteListScreen(
                 }
             } else {
                 if (favListUiState.favList.isNotEmpty()) {
-                    LazyVerticalGrid(
+                    Column(
                         modifier = Modifier
                             .fillMaxSize()
-                            .background(MaterialTheme.colorScheme.surface),
-                        columns = GridCells.Fixed(2),
-                        content = {
-                            items(favListUiState.favList) { favItem ->
-                                FavListItemComponent(
-                                    catItem = favItem,
-                                    onFavouriteClicked = onFavouriteClicked
-                                ) { id ->
-                                    navController.navigate(CatDetail(id = id, isInvokedFromFavourite = true))
+                            .background(color = MaterialTheme.colorScheme.surface)
+
+                    ) {
+                        Text(
+                            text = "Your favourites.. ",
+                            modifier = Modifier.padding(dimensionResource(R.dimen.padding_medium)),
+                            fontSize = dimensionResource(R.dimen.large_font_size).value.sp,
+                            color = MaterialTheme.colorScheme.onBackground,
+                            fontWeight = FontWeight.ExtraBold,
+                            fontFamily = FontFamily(
+                                Font(R.font.title_regular, FontWeight.Light)
+                            ),
+                            style = TextStyle(
+                                brush = Brush.linearGradient(
+                                    colors = listOf(
+                                        Color.Red, Color.Yellow
+                                    )
+                                )
+                            )
+                        )
+                        LazyVerticalGrid(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(horizontal = dimensionResource(R.dimen.padding_small))
+                                .background(MaterialTheme.colorScheme.surface),
+                            columns = GridCells.Fixed(2),
+                            content = {
+                                items(favListUiState.favList) { favItem ->
+                                    FavListItemComponent(
+                                        catItem = favItem,
+                                        onFavouriteClicked = onFavouriteClicked
+                                    ) { id ->
+                                        navController.navigate(
+                                            CatDetail(
+                                                id = id,
+                                                isInvokedFromFavourite = true
+                                            )
+                                        )
+                                    }
                                 }
                             }
-                        }
-                    )
+                        )
+                    }
+
                 } else {
                     Text(
                         text = "No favourite cats",
