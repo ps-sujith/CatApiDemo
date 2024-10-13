@@ -12,8 +12,6 @@
     <dimen name="padding_small">5.dp</dimen>
     <dimen name="padding_medium">8.dp</dimen>
     <dimen name="padding_large">10.dp</dimen>
-    <dimen name="border_small">2.dp</dimen>
-    <dimen name="border_medium">4.dp</dimen>
     <dimen name="card_view_rounded_shape">5.dp</dimen>
     <dimen name="card_view_card_elevation">10.dp</dimen>
     <dimen name="small_font_size">12.sp</dimen>
@@ -24,6 +22,5 @@
     <dimen name="loader_size">200.dp</dimen>
     <dimen name="loader_size_small">50.dp</dimen>
     <dimen name="column_space">8.dp</dimen>
-    <dimen name="small_circle_size">25.dp</dimen>
     <dimen name="details_view_image_size">300.dp</dimen>
 </resources>

@@ -17,7 +17,7 @@ object Splash
 object CatList
 
 @Serializable
-data class CatDetail(val id :String)
+data class CatDetail(val id: String, val isInvokedFromFavourite: Boolean)
 
 @Serializable
 object FavouriteList

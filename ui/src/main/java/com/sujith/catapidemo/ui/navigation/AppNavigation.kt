@@ -55,11 +55,23 @@ fun AppNavigation() {
             composable<CatDetail> { entry ->
                 val catListViewModel =
                     entry.sharedViewModel<CatListViewModel>(navController = navController)
+                val favouriteViewModel: FavouriteViewModel = koinViewModel()
                 val catListUiState by catListViewModel.catListUiState.collectAsStateWithLifecycle()
+                val favListUiState by favouriteViewModel.favListUiState.collectAsStateWithLifecycle()
+                val sourceList =
+                    if (entry.toRoute<CatDetail>().isInvokedFromFavourite) favListUiState.favList else catListUiState.catList
                 val catId = entry.toRoute<CatDetail>().id
-                val selectedCatItem = catListUiState.catList.takeIf { it.isNotEmpty() }
-                    ?.firstOrNull { it.id == catId }
-                CatDetailScreen(navController = navController, selectedItem = selectedCatItem)
+                val selectedCatItem =
+                    sourceList.takeIf { it.isNotEmpty() }?.firstOrNull { it.id == catId }
+                CatDetailScreen(
+                    navController = navController, selectedItem = selectedCatItem
+                ) { isFavourite, catListItem ->
+                    if (isFavourite) {
+                        favouriteViewModel.addFavouriteCat(catListItem.copy(isFavourite = true))
+                    } else {
+                        favouriteViewModel.removeFavouriteCat(catListItem)
+                    }
+                }
             }
         }
 

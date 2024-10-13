@@ -1,4 +1,4 @@
-package com.sujith.catapidemo.ui.feature_catList
+package com.sujith.catapidemo.ui.fetaure_favourite
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -11,30 +11,33 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.sujith.catapidemo.domain.model.CatListItem
 import com.sujith.catapidemo.ui.R
-import com.sujith.catapidemo.ui.feature_catList.component.CatListItemComponent
-import com.sujith.catapidemo.ui.feature_catList.component.CatListUiState
+import com.sujith.catapidemo.ui.feature_catList.component.FavListUiState
+import com.sujith.catapidemo.ui.fetaure_favourite.component.FavListItemComponent
 import com.sujith.catapidemo.ui.navigation.CatDetail
 import com.sujith.catapidemo.ui.utils.BottomNavBarComponent
-import com.sujith.catapidemo.ui.utils.ErrorView
 import com.sujith.catapidemo.ui.utils.TopAppBarComponent
 import com.sujith.ui.utils.Lottie
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CatListScreen(
+fun FavouriteListScreen(
     navController: NavController,
-    catListUiState: CatListUiState,
+    favListUiState: FavListUiState,
     onFavouriteClicked: (isFavourite: Boolean, catListItem: CatListItem) -> Unit
 ) {
     val scrollBehaviour = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
@@ -51,7 +54,7 @@ fun CatListScreen(
                 .padding(innerPadding),
             contentAlignment = Alignment.Center
         ) {
-            if (catListUiState.isLoading) {
+            if (favListUiState.isLoading) {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.surface
@@ -64,23 +67,30 @@ fun CatListScreen(
                     )
                 }
             } else {
-                if (catListUiState.catList.isNotEmpty()) {
+                if (favListUiState.favList.isNotEmpty()) {
                     LazyVerticalGrid(
-                        modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.surface),
-                        columns = GridCells.Fixed(1),
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(MaterialTheme.colorScheme.surface),
+                        columns = GridCells.Fixed(2),
                         content = {
-                            items(catListUiState.catList) { catItem ->
-                                CatListItemComponent(
-                                    catItem = catItem,
+                            items(favListUiState.favList) { favItem ->
+                                FavListItemComponent(
+                                    catItem = favItem,
                                     onFavouriteClicked = onFavouriteClicked
                                 ) { id ->
-                                    navController.navigate(CatDetail(id = id, isInvokedFromFavourite = false))
+                                    navController.navigate(CatDetail(id = id, isInvokedFromFavourite = true))
                                 }
                             }
                         }
                     )
                 } else {
-                    ErrorView(error = "Something Went wrong !!")
+                    Text(
+                        text = "No favourite cats",
+                        fontSize = dimensionResource(id = R.dimen.small_font_size).value.sp,
+                        color = MaterialTheme.colorScheme.onBackground,
+                        fontFamily = FontFamily.Serif,
+                    )
                 }
             }
         }

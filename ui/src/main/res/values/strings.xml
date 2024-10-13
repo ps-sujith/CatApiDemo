@@ -1,3 +1,9 @@
 <resources>
     <string name="my_cat_app">Cats App</string>
+    <string name="adaptability_level">Adaptability Level</string>
+    <string name="affection_level">Affection Level</string>
+    <string name="child_friendly_level">Child Friendly Level</string>
+    <string name="dog_friendly_level">Dog Friendly Level</string>
+    <string name="energy_level">Energy Level</string>
+    <string name="intelligence_level">Intelligence Level</string>
 </resources>

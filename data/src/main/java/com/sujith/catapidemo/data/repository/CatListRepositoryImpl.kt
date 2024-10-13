@@ -18,10 +18,14 @@ class CatListRepositoryImpl(
     override suspend fun getCatListWithBreed(): Flow<Result<List<CatListItem>>> {
         val result: List<CatListItemDto> = remoteCatListDataSource.getCatListWithBreed()
         return flow {
-            if (result.isNotEmpty()) {
-                val mappedResult = result.mapNotNull { it.toDomain() }
-                emit(Result.success(mappedResult))
-            } else {
+            try {
+                if (result.isNotEmpty()) {
+                    val mappedResult = result.map { it.toDomain() }
+                    emit(Result.success(mappedResult))
+                } else {
+                    emit(Result.failure(RuntimeException("Something went wrong")))
+                }
+            } catch (e: Exception) {
                 emit(Result.failure(RuntimeException("Something went wrong")))
             }
         }

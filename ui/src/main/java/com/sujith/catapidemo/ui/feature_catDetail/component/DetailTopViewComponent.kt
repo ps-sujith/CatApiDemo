@@ -18,10 +18,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
@@ -37,10 +35,11 @@ import androidx.compose.ui.unit.sp
 import com.sujith.catapidemo.domain.model.CatListItem
 import com.sujith.catapidemo.ui.R
 import com.sujith.catapidemo.ui.utils.CoilImage
+import com.sujith.catapidemo.ui.utils.FavouriteButtonComponent
 import com.sujith.catapidemo.ui.utils.ItemUtil
 
 @Composable
-fun DetailsTopViewComponent(catItem: CatListItem) {
+fun DetailsTopViewComponent(catItem: CatListItem, onFavClicked: (isFavourite: Boolean) -> Unit) {
     val context = LocalContext.current
     val configuration = LocalConfiguration.current
     Column(
@@ -48,6 +47,7 @@ fun DetailsTopViewComponent(catItem: CatListItem) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
         Card(
             modifier = Modifier
                 .height((configuration.screenHeightDp / 2.5).dp)
@@ -65,36 +65,48 @@ fun DetailsTopViewComponent(catItem: CatListItem) {
                 modifier = Modifier.fillMaxWidth()
             )
         }
-        Text(
-            text = catItem.breedName,
-            modifier = Modifier.padding(dimensionResource(R.dimen.padding_extra_small)),
-            fontSize = dimensionResource(R.dimen.extra_large_font_size).value.sp,
-            color = MaterialTheme.colorScheme.onBackground,
-            fontWeight = FontWeight.ExtraBold,
-            fontFamily = FontFamily(
-                Font(R.font.title_regular, FontWeight.Light)
-            ),
-            style = TextStyle(
-                brush = Brush.linearGradient(
-                    colors = listOf(
-                        Color.Blue,
-                        Color.Magenta,
-                        Color.Blue,
-                        Color.Cyan,
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = dimensionResource(R.dimen.padding_large)),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Absolute.SpaceBetween
+        ) {
+            Text(
+                text = catItem.breedName,
+                modifier = Modifier.padding(dimensionResource(R.dimen.padding_extra_small)),
+                fontSize = dimensionResource(R.dimen.extra_large_font_size).value.sp,
+                color = MaterialTheme.colorScheme.onBackground,
+                fontWeight = FontWeight.ExtraBold,
+                fontFamily = FontFamily(
+                    Font(R.font.title_regular, FontWeight.Light)
+                ),
+                style = TextStyle(
+                    brush = Brush.linearGradient(
+                        colors = listOf(
+                            Color.Blue,
+                            Color.Magenta,
+                            Color.Blue,
+                            Color.Cyan,
+                        )
                     )
                 )
             )
-        )
-        Spacer(modifier = Modifier.height(10.dp))
+            FavouriteButtonComponent(incomingState = catItem.isFavourite) {
+                onFavClicked(it)
+            }
+        }
+        Spacer(modifier = Modifier.height(5.dp))
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(dimensionResource(R.dimen.padding_large)),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Absolute.SpaceBetween
+            verticalAlignment = Alignment.CenterVertically
         ) {
             if (catItem.originCountry.isNotEmpty()) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
                     Icon(
                         ImageVector.vectorResource(R.drawable.baseline_flag_circle_24),
                         tint = MaterialTheme.colorScheme.onBackground,
@@ -105,18 +117,15 @@ fun DetailsTopViewComponent(catItem: CatListItem) {
                         fontSize = dimensionResource(id = R.dimen.small_font_size).value.sp,
                         color = MaterialTheme.colorScheme.onBackground,
                         fontFamily = FontFamily.Serif,
-                        style = TextStyle(
-                            shadow = Shadow(
-                                color = MaterialTheme.colorScheme.onBackground,
-                                offset = Offset(10f, 10f),
-                                blurRadius = 10f
-                            )
+
                         )
-                    )
                 }
             }
             if (catItem.lifeSpan.isNotEmpty()) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.padding(horizontal = dimensionResource(R.dimen.padding_small))
+                ) {
                     Icon(
                         Icons.Sharp.Home,
                         tint = MaterialTheme.colorScheme.onBackground,
@@ -127,13 +136,6 @@ fun DetailsTopViewComponent(catItem: CatListItem) {
                         fontSize = dimensionResource(id = R.dimen.small_font_size).value.sp,
                         color = MaterialTheme.colorScheme.onBackground,
                         fontFamily = FontFamily.Serif,
-                        style = TextStyle(
-                            shadow = Shadow(
-                                color = MaterialTheme.colorScheme.onBackground,
-                                offset = Offset(10f, 10f),
-                                blurRadius = 10f
-                            )
-                        )
                     )
                 }
             }
@@ -146,19 +148,14 @@ fun DetailsTopViewComponent(catItem: CatListItem) {
             fontSize = dimensionResource(id = R.dimen.small_medium_font_size).value.sp,
             color = MaterialTheme.colorScheme.onBackground,
             fontFamily = FontFamily.Serif,
-
-            )
-
+        )
     }
-
-
 }
-
 
 @Preview(showBackground = true)
 @Composable
 fun DetailsTopViewComponentPreview() {
     Surface {
-        DetailsTopViewComponent(catItem = ItemUtil.getDummyCatItem())
+        DetailsTopViewComponent(catItem = ItemUtil.getDummyCatItem(), {})
     }
 }

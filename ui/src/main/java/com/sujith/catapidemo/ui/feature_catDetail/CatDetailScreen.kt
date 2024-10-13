@@ -26,7 +26,11 @@ import com.sujith.catapidemo.ui.utils.TopAppBarComponent
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CatDetailScreen(navController: NavController, selectedItem: CatListItem?) {
+fun CatDetailScreen(
+    navController: NavController,
+    selectedItem: CatListItem?,
+    onFavouriteClicked: (isFavourite: Boolean, catListItem: CatListItem) -> Unit
+) {
     val scrollBehaviour = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehaviour.nestedScrollConnection),
@@ -44,7 +48,9 @@ fun CatDetailScreen(navController: NavController, selectedItem: CatListItem?) {
                     .background(MaterialTheme.colorScheme.background)
                     .padding(innerPadding)
             ) {
-                DetailsTopViewComponent(catItem = selectedItem)
+                DetailsTopViewComponent(catItem = selectedItem) {
+                    onFavouriteClicked(it, selectedItem)
+                }
                 DetailsBottomViewComponent(catItem = selectedItem)
             }
         } else {
@@ -60,16 +66,5 @@ fun CatDetailScreen(navController: NavController, selectedItem: CatListItem?) {
         }
     }
 }
-
-
-//@Composable
-//fun DetailsCentreView(wand: Any, houseColor: Any) {
-//    TODO("Not yet implemented")
-//}
-//
-//@Composable
-//fun DetailsTopView(characterItem: Any, houseColor: Any) {
-//    TODO("Not yet implemented")
-//}
 
 
