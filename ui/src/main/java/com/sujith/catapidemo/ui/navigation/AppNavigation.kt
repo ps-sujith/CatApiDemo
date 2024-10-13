@@ -34,11 +34,13 @@ fun AppNavigation() {
                 val catListUiState by catListViewModel.catListUiState.collectAsStateWithLifecycle()
                 val favouriteViewModel: FavouriteViewModel = koinViewModel()
                 val favListUiState by favouriteViewModel.favListUiState.collectAsStateWithLifecycle()
+                //comparing current cat list with favourite list to mark the items as favourite if
+                // present in both to include favourite items in main cat list due to API limitation
                 val catList = catListUiState.catList.toMutableList()
                 if (favListUiState.favList.isNotEmpty()) {
                     favListUiState.favList.forEach { cat ->
                         catList.takeIf { it.isNotEmpty() }
-                            ?.find { it.breedName == cat.breedName }?.isFavourite = true
+                            ?.find { it.id == cat.id }?.isFavourite = true
                     }
                 }
                 CatListScreen(
@@ -58,6 +60,7 @@ fun AppNavigation() {
                 val favouriteViewModel: FavouriteViewModel = koinViewModel()
                 val catListUiState by catListViewModel.catListUiState.collectAsStateWithLifecycle()
                 val favListUiState by favouriteViewModel.favListUiState.collectAsStateWithLifecycle()
+                //maintaining a single detail screen for cat list and favourite list
                 val sourceList =
                     if (entry.toRoute<CatDetail>().isInvokedFromFavourite) favListUiState.favList else catListUiState.catList
                 val catId = entry.toRoute<CatDetail>().id
@@ -94,6 +97,11 @@ fun AppNavigation() {
     }
 }
 
+/**
+ * Inline function retrieve the existing viewmodel instance,if null returns a new instance
+ * This enables to use the viemodel as a shared viewmodel since NavBackStackEntry is acting as
+ * a viewmodelStoreOwner
+ */
 @Composable
 inline fun <reified T : ViewModel> NavBackStackEntry.sharedViewModel(
     navController: NavHostController,

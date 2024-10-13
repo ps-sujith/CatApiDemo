@@ -48,7 +48,7 @@ fun CatListScreen(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding),
+                .padding(innerPadding).background( color = MaterialTheme.colorScheme.surface),
             contentAlignment = Alignment.Center
         ) {
             if (catListUiState.isLoading) {

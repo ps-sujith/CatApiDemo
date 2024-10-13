@@ -20,7 +20,7 @@
     <dimen name="large_font_size">26.sp</dimen>
     <dimen name="extra_large_font_size">35.sp</dimen>
     <dimen name="loader_size">200.dp</dimen>
-    <dimen name="loader_size_small">50.dp</dimen>
+    <dimen name="loader_size_small">70.dp</dimen>
     <dimen name="column_space">8.dp</dimen>
     <dimen name="details_view_image_size">300.dp</dimen>
 </resources>

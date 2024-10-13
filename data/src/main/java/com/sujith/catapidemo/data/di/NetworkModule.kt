@@ -1,6 +1,7 @@
 package com.sujith.catapidemo.data.di
 
 import com.sujith.catapidemo.data.BuildConfig
+import com.sujith.catapidemo.data.api.CatApiInterceptor
 import com.sujith.catapidemo.data.api.CatListApiService
 import com.sujith.catapidemo.data.dataSource.LocalCatListDataSource
 import com.sujith.catapidemo.data.dataSource.RemoteCatListDataSource
@@ -18,14 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 val networkModule = module {
-    single<Retrofit> {
-        Retrofit.Builder()
-            .baseUrl(BuildConfig.BASE_URL)
-            .client(OkHttpClient())
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
-
+    single<Retrofit> { provideRetrofit(get()) }
     single<CatListApiService> { provideCatListApiService(get()) }
     single<RemoteCatListDataSource> { provideRemoteCatListDataSource(get()) }
     single<CatListRepository> { provideCatListRepository(get(), get()) }
@@ -33,6 +27,8 @@ val networkModule = module {
     single<AddFavouriteCatUseCase> { provideAddFavouriteUseCase(get()) }
     single<RemoveFavouriteCatUseCase> { provideRemoveFavouriteUseCase(get()) }
     single<GetFavouriteCatListUseCase> { provideGetFavouriteCatListUseCase(get()) }
+    single<CatApiInterceptor> { provideCatApiInterceptor() }
+    single<OkHttpClient> { provideOkHttpClient(get()) }
 }
 
 
@@ -53,9 +49,25 @@ fun provideCatListApiService(retrofit: Retrofit): CatListApiService =
 fun provideRemoteCatListDataSource(apiService: CatListApiService): RemoteCatListDataSourceImpl =
     RemoteCatListDataSourceImpl(apiService)
 
+fun provideCatApiInterceptor() : CatApiInterceptor= CatApiInterceptor()
+
+fun provideOkHttpClient(catApiInterceptor: CatApiInterceptor): OkHttpClient {
+    return OkHttpClient().newBuilder().addInterceptor(catApiInterceptor).build()
+}
+
+fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+    return Retrofit.Builder()
+        .baseUrl(BuildConfig.BASE_URL)
+        .client(okHttpClient)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+}
+
 
 fun provideCatListRepository(
     remoteCatListDataSource: RemoteCatListDataSource,
     localCatListDataSource: LocalCatListDataSource
 ): CatListRepositoryImpl =
     CatListRepositoryImpl(remoteCatListDataSource, localCatListDataSource)
+
+
