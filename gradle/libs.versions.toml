@@ -24,6 +24,7 @@ material = "1.12.0"
 lottieVersion = "6.5.2"
 uiToolingPreview = "1.7.2"
 koin-bom = "4.0.0"
+roomRuntime = "2.6.1"
 
 [libraries]
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
@@ -64,6 +65,10 @@ koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin-bom" }
 koin-core = { module = "io.insert-koin:koin-core" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose" }
 
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRuntime" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
@@ -79,3 +84,4 @@ unitTest = ["junit", "mockito-kotlin", "mockito-inline",
     "androidx-core-testing", "kotlinx-coroutines-test", "turbine"]
 uiTest = ["androidx-junit", "androidx-espresso-core", "androidx-ui-test-junit4"]
 debugImpl = ["androidx-ui-tooling", "androidx-ui-test-manifest"]
+room = ["androidx-room-ktx","androidx-room-runtime"]

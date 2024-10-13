@@ -1,4 +1,4 @@
-package com.sujith.catapidemo.ui.catlist
+package com.sujith.catapidemo.ui.feature_catList.component
 
 import com.sujith.catapidemo.domain.model.CatListItem
 

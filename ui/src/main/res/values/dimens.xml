@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="app_bar_title_size">17.dp</dimen>
+    <dimen name="default_app_padding">8.dp</dimen>
+    <dimen name="grid_image_inner_size">110.dp</dimen>
+    <dimen name="grid_image_outer_size">116.dp</dimen>
+    <dimen name="details_image_portrait_size">220.dp</dimen>
+    <dimen name="details_image_landscape_size">150.dp</dimen>
+    <dimen name="list_item_height">300.dp</dimen>
+    <dimen name="column_padding">8.dp</dimen>
+    <dimen name="padding_extra_small">3.dp</dimen>
+    <dimen name="padding_small">5.dp</dimen>
+    <dimen name="padding_medium">8.dp</dimen>
+    <dimen name="padding_large">10.dp</dimen>
+    <dimen name="border_small">2.dp</dimen>
+    <dimen name="border_medium">4.dp</dimen>
+    <dimen name="card_view_rounded_shape">5.dp</dimen>
+    <dimen name="card_view_card_elevation">10.dp</dimen>
+    <dimen name="small_font_size">12.sp</dimen>
+    <dimen name="small_medium_font_size">14.sp</dimen>
+    <dimen name="medium_font_size">16.sp</dimen>
+    <dimen name="large_font_size">26.sp</dimen>
+    <dimen name="extra_large_font_size">35.sp</dimen>
+    <dimen name="loader_size">200.dp</dimen>
+    <dimen name="loader_size_small">50.dp</dimen>
+    <dimen name="column_space">8.dp</dimen>
+    <dimen name="small_circle_size">25.dp</dimen>
+    <dimen name="details_view_image_size">300.dp</dimen>
+</resources>

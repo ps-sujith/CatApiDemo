@@ -1,10 +1,12 @@
-package com.sujith.catapidemo.ui.catlist
+package com.sujith.catapidemo.ui.feature_catList
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sujith.catapidemo.domain.usecase.GetCatListUseCase
+import com.sujith.catapidemo.ui.feature_catList.component.CatListUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -21,8 +23,7 @@ class CatListViewModel(private val getCatListUseCase: GetCatListUseCase) : ViewM
     )
 
     private suspend fun getCatList() {
-        getCatListUseCase.getCatList().collect { result ->
-            println("SPS_ list  vm collectiom")
+        getCatListUseCase.getCatList().collectLatest { result ->
             _catListUiState.update {
                 it.copy(
                     isLoading = false, catList = result.getOrDefault(
@@ -32,7 +33,6 @@ class CatListViewModel(private val getCatListUseCase: GetCatListUseCase) : ViewM
             }
         }
     }
-
 }
 
 

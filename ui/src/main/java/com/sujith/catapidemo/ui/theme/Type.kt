@@ -1,4 +1,4 @@
-package com.sujith.catapidemo.ui.theme
+package com.sujith.catapidemo.ui.feature_catList.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

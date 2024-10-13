@@ -7,8 +7,8 @@ import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import com.sujith.catapidemo.domain.model.CatListItem
 import com.sujith.catapidemo.domain.usecase.GetCatListUseCase
-import com.sujith.catapidemo.ui.catlist.CatListUiState
-import com.sujith.catapidemo.ui.catlist.CatListViewModel
+import com.sujith.catapidemo.ui.feature_catList.CatListViewModel
+import com.sujith.catapidemo.ui.feature_catList.component.CatListUiState
 import com.sujith.ui.utils.MainCoroutineScopeRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flow
