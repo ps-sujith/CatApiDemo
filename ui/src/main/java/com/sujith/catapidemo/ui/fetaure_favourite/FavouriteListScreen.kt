@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -47,7 +48,7 @@ fun FavouriteListScreen(
     onFavouriteClicked: (isFavourite: Boolean, catListItem: CatListItem) -> Unit
 ) {
     val scrollBehaviour = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
-    Scaffold(modifier = Modifier.nestedScroll(scrollBehaviour.nestedScrollConnection),
+    Scaffold(modifier = Modifier.nestedScroll(scrollBehaviour.nestedScrollConnection).navigationBarsPadding(),
         topBar = {
             TopAppBarComponent(scrollBehaviour, false) {}
         },

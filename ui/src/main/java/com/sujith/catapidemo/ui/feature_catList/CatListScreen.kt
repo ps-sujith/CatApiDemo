@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -38,7 +39,7 @@ fun CatListScreen(
     onFavouriteClicked: (isFavourite: Boolean, catListItem: CatListItem) -> Unit
 ) {
     val scrollBehaviour = TopAppBarDefaults.enterAlwaysScrollBehavior(rememberTopAppBarState())
-    Scaffold(modifier = Modifier.nestedScroll(scrollBehaviour.nestedScrollConnection),
+    Scaffold(modifier = Modifier.nestedScroll(scrollBehaviour.nestedScrollConnection).systemBarsPadding(),
         topBar = {
             TopAppBarComponent(scrollBehaviour, false) {}
         },
@@ -48,7 +49,7 @@ fun CatListScreen(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding).background( color = MaterialTheme.colorScheme.surfaceContainer),
+                .padding(bottom =  innerPadding.calculateBottomPadding()).background( color = MaterialTheme.colorScheme.surfaceContainer),
             contentAlignment = Alignment.Center
         ) {
             if (catListUiState.isLoading) {
