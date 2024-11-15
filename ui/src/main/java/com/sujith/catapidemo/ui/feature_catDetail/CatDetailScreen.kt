@@ -24,6 +24,7 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.ModalBottomSheetProperties
 import androidx.compose.material3.Shapes
 import androidx.compose.material3.SheetValue
+import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
@@ -33,6 +34,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.sujith.catapidemo.domain.model.CatListItem
@@ -56,7 +58,9 @@ fun CatDetailScreen(
         sheetState = modalBottomSheetState,
         modifier = Modifier.background(Color.Transparent),
         properties = ModalBottomSheetProperties(shouldDismissOnBackPress = true),
-        dragHandle = { BottomSheetDefaults.DragHandle(height = 0.dp, width = 0.dp) },
+        containerColor = Color.Transparent,
+        tonalElevation = 10.dp,
+        dragHandle = { BottomSheetDefaults.DragHandle(height = 0.dp, width = 0.dp, color = Color.Red) },
         shape = BottomSheetDefaults.HiddenShape,
         onDismissRequest = { navController.navigateUp() }) {
         if (selectedItem != null) {
@@ -91,6 +95,9 @@ fun CatDetailScreen(
                             .height(40.dp)
                             .width(40.dp)
                     )
+                    Box( modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center){
+                        Text("Cat Detail", color = MaterialTheme.colorScheme.onBackground)
+                    }
                 }
                 DetailsTopViewComponent(catItem = selectedItem) {
                     onFavouriteClicked(it, selectedItem)
